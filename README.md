@@ -1,5 +1,4 @@
-# GAN-for-NLP-Survey
-Generative Adversarial Networks for Natural Language Processing: A Systematic Review, Function-Based Taxonomy, and Research Agenda
+# Generative Adversarial Networks for Natural Language Processing: A Systematic Review, Function-Based Taxonomy, and Research Agenda
 
 **Authors**: Mohammad Hossein Zolfagharnasab* & Amin Haghdadi, Siavash Damari, Hooshiar Zolfagharnasab, Ana F. Sequeira, Jaime S. Cardoso
 
@@ -46,13 +45,13 @@ All retrieved records were merged into a single dataset representing the **PRISM
 
 `Prisma/01_aticles_per_source/articles.csv`
 
-The dataset contains title, authors, abstract, year, doi (when available), source.
+The dataset contains title, authors, abstract, year, doi (when available), and Repo. **Repo identifies the repository category assigned to each record.**
 
 ---
 
 ### 1.2) Keyword design and search intent
 
-The search strategy was constructed to deliberately target studies at the **intersection of Generative Adversarial Networks and Natural Language Processing**, ensuring both relevance and specificity.
+The search strategy targets studies at the **intersection of Generative Adversarial Networks and Natural Language Processing**.
 
 Search terms were organized along three complementary dimensions:
 
@@ -66,92 +65,94 @@ Search terms were organized along three complementary dimensions:
 
   3. Search refinement criteria
 
-    Publication period: 2017–2025
+    Publication period: 2018–2026 (search date: 21 October 2026)
     Subject area: Computer Science
     Language: English
 
 Only studies simultaneously addressing all three dimensions were eligible.
 
-### 1.3) Search Rationale
+### 1.3) Search query
 
-The following blocks show the **exact logical structure** of the Scopus queries used in the study.  
-Equivalent queries were executed on Arxiv, ScienceDirect, IEEE Xplore, and SemanticScholar with syntax adaptations only.
+The same query was used for all repositories, adapted only to the syntax of each platform:
 
-SQL-like representation:
+```
+SEARCH FIELDS: Title, Abstract, Keywords
 
-    TITLE-ABS-KEY ( ( "GAN" OR "GANs" OR "generative adversarial network" OR "generative adversarial networks" ) AND ( "text" OR "music" OR "time series" OR "phishing" OR "malware" OR "sign language" OR "dialogue" ) ) AND PUBYEAR > 2017 AND PUBYEAR < 2026 AND ( LIMIT-TO ( SUBJAREA , "COMP" ) ) AND ( LIMIT-TO ( LANGUAGE , "English" ) )
+(
+  ("GAN" OR "GANs" OR "generative adversarial network"
+   OR "generative adversarial networks")
+  AND
+  ("text" OR "music" OR "time series" OR "phishing"
+   OR "malware" OR "sign language" OR "dialogue")
+)
+AND (Publication year >= 2018)
+AND (Language = "English")
+AND (Subject area = "Computer Science")
+```
 
-The Scopus date filter covers 2018–2025. Because the date filters of the other sources differ, a small number of 2017 records entered through arXiv and Semantic Scholar. Online-first records dated 2026 were initially retained; none of them is among the included primary studies.
+Example of the platform-specific syntax (Scopus):
+
+    TITLE-ABS-KEY ( ( "GAN" OR "GANs" OR "generative adversarial network" OR "generative adversarial networks" ) AND ( "text" OR "music" OR "time series" OR "phishing" OR "malware" OR "sign language" OR "dialogue" ) ) AND PUBYEAR > 2017 AND ( LIMIT-TO ( SUBJAREA , "COMP" ) ) AND ( LIMIT-TO ( LANGUAGE , "English" ) )
+
+The review period starts in 2018 (Publication year >= 2018). The 18 records published before 2018 were removed before screening and are listed in `Prisma/02_duplicate_removal/articles_rejected_by_date.csv`. The search was run on 21 October 2026. Online-first records dated 2027 at the time of the search were screened in the same way; none of them is among the included primary studies.
+
+### 1.4) Citation searching
+
+The reference lists of the included studies and of the related reviews were searched backwards for eligible studies that the database queries had not retrieved. The 11 records found in this way were assessed against the same criteria; 5 were included and 6 were excluded because they were published before 2018. They are listed in `Prisma/08_other_methods/citation_searching_records.csv`.
 
 ---
 
 ## 2) Analyzing the Retrieved Articles:
 
-### 2.1) Distribution of retrieved literature across repositories
+### 2.1) Records by assigned repository category
 
-After merging all retrieved records, we analysed **repository-level contributions** to understand coverage, redundancy, and balance.
+The chart shows how the 11,729 identified records are distributed over the repository categories in the Repo column.
 
 ![Distribution of Sources](figs/Distribution_of_Sources.png)
 
-### Detailed interpretation
+### 2.2) Vocabulary of the retrieved records
 
-This distribution demonstrates that multi-source retrieval is essential for achieving comprehensive coverage and minimizing database-specific bias in GAN-for-NLP research.
-- Scopus contributes the largest share of records, reflecting its broad coverage of computer science and AI research and establishing it as the primary retrieval source.
-- Semantic Scholar provides complementary coverage, particularly for recent and cross-domain GAN-for-NLP studies.
-- ArXiv contributes emerging research, capturing preprints of novel GAN architectures and experimental approaches.
-- IEEE Xplore and ScienceDirect add valuable peer-reviewed studies, mainly covering technical developments and journal-based contributions in machine learning and NLP.
-
-This distribution confirms that the retrieval process is **not dominated by a single database** and that multi-source querying is necessary for this research topic.
-
-### 2.2) Vocabulary analysis: validating the search strategy
-
-To assess whether the keyword design and filters successfully captured the intended research space, we analysed the dominant terminology present in the retrieved corpus.
+The word cloud shows the most frequent terms in the titles of the retrieved records.
 
 ![Word cloud](figs/WordCloud_Articles.png)
 
-### Detailed interpretation
+### Description
 
-- Dominant terms such as Generative, Adversarial, Network, GAN, Image, and Deep confirm that the retrieved literature centers on deep generative modeling, particularly Generative Adversarial Networks and their architectural variants.
-- The co-occurrence of Text, Image, Music, Video, and Multimodal indicates that the corpus spans multiple data modalities, reflecting a broad application scope for generative techniques.
-- Frequent appearance of Detection, Classification, Medical, Cancer, and Diagnosis alongside generative terms shows the literature bridges generative modeling with real-world diagnostic and discriminative applications.
-- The absence of dominant off-topic terminology suggests that the keyword design and inclusion criteria effectively isolated literature within the intended generative-AI scope.
+- Frequent terms include Generative, Adversarial, Network, GAN, Image, and Deep.
+- Text, Image, Music, Video, and Multimodal also occur often, reflecting the several data modalities among the retrieved records.
+- Detection, Classification, Medical, Cancer, and Diagnosis appear as well; many records on such topics were excluded during screening as non-linguistic applications.
 
 
 ---
 
-### 2.3)  Evolution of the literature (2018–2025)
+### 2.3)  Evolution of the literature (2018–2026)
 
-We analyzed the yearly publication trends, after removing duplicate records and articles without a specified publication year, to assess the maturity and growth dynamics of the field.
+We analyzed the yearly publication trends, after removing duplicate records and records without a valid publication year, to assess the maturity and growth dynamics of the field.
 
 ![Yearly publication trend](figs/years_stats_articles.png)
 
 #### Key observations
 
+The left panel counts the de-duplicated records retrieved by the search (`Prisma/02_duplicate_removal/articles_after_duplicates.csv`) per publication year; the right panel counts the primary studies included in the review (`Prisma/07_candidate_papers/candidate_papers.csv`, excluding the 13 supporting reviews and surveys).
 
-We analyzed the yearly publication trends to assess the maturity and growth dynamics of GAN research and its adoption within linguistic (NLP) applications.
+De-duplicated records retrieved by the search:
 
-GAN studies (overall):
+- 2018–2019: Early stage (147–339 records per year)
+- 2020–2022: Steady growth (458–780 records per year)
+- 2023–2025: Strong expansion (998–1,781 records per year)
+- 2026 (partial, through 21st October): 1,988 records, the largest number of any year
 
-- 2018–2019: Foundational stage, moderate activity (2,209–3,930 publications)
-- 2020–2021: Strong growth (5,278–6,625), reflecting the increasing adoption of GANs across machine learning
-- 2022–2023: Sustained expansion (7,171–8,415), as GANs became an established tool across machine learning
-- 2024: Peak activity (10,125 publications), marking the field's consolidation as an established and widely applied research area
-- 2025 (partial, through 17th September): 4,757 publications recorded so far, consistent with prior-year pace when annualized
+Primary studies included in the review:
 
-GAN studies in linguistic applications:
-
-- 2018–2019: Early stage, minimal activity (11–63 publications)
-- 2020–2021: Rapid uptake (94–104), coinciding with the broader integration of adversarial methods into NLP pipelines
-- 2022–2023: Continued growth (109–138), reflecting diversification into tasks such as text classification, robustness testing, and adversarial example generation
-- 2024: Peak activity (153 publications), indicating that GANs have become an established, specialised line of research within NLP
-- 2025 (partial, through 17th September): 75 publications recorded so far, suggesting continued steady interest
+- 2018–2019: 42 studies, consolidating adversarial text generation
+- 2020–2022: 85 studies, spread across all four analytical families
+- 2023–2026: 104 studies (29 in 2025 and 33 in 2026), with a growing share of secure text processing and text-guided multimodal applications
 
 ---
 
 ## 3) PRISMA workflow and screening pipeline
 
-All retrieved records entered a **PRISMA-compliant, fully auditable screening pipeline** specifically designed for a **cross-disciplinary systematic review** spanning NLP, security, multimodal generation, and music informatics.  
-The pipeline emphasizes **traceability, conservative exclusion, and reproducibility**, ensuring that every decision can be independently inspected and replicated.
+All retrieved records went through the PRISMA 2020 stages below. The repository provides machine-readable screening records and exclusion reasons for each stage.
 
 Identification → Duplicate Removal → Title Screening → Abstract Screening → Full-Text Screening → Qualitative Screening → Inclusion
 
@@ -161,31 +162,33 @@ Identification → Duplicate Removal → Title Screening → Abstract Screening 
 
 ### 3.1) Review Rules and Guidlines
 
-The table below summarizes the **quantitative evolution of the corpus** across PRISMA stages.  
-Importantly, reductions at each stage are **intentional and methodologically motivated**, not arbitrary filtering.
+The table below gives the number of records at each PRISMA stage.
 
 | PRISMA stage | Records | Description |
 |-------------|---------|-------------|
-| Identified | 9,368 | Raw corpus aggregated from all repositories and manual backward searches |
-| After duplicate removal | 7,144 | Redundant indexing across databases removed |
-| After title screening | 5,148 | Clearly irrelevant or out-of-scope studies excluded |
-| After abstract screening | 3,327 | Studies failing methodological relevance criteria excluded |
-| Full-text assessed | 1,351 | Subset eligible for detailed methodological inspection |
-| After quality appraisal | 199 | Studies meeting rigor, transparency, and comparability requirements |
-| After final verification | 192 | 7 records outside the GAN-for-NLP scope removed (code S1) |
-| Final included | 192 | 168 primary studies (synthesised in the review) + 24 supporting records (15 reviews/surveys, 7 background works, 2 contextual GAN studies) |
+| Identified | 11,729 | Bibliographic records assembled for screening; by assigned repository category: Scopus 4,611; Semantic Scholar 2,604; arXiv 1,945; IEEE Xplore 1,910; ScienceDirect 659 |
+| After removal before screening | 8,996 | Duplicate records removed (2,715); records published before 2018 removed (18) |
+| After title screening | 5,904 | Clearly irrelevant or out-of-scope studies excluded |
+| After abstract screening (full-text assessed) | 3,594 | Studies failing methodological relevance criteria excluded |
+| After full-text screening (quality appraised) | 1,565 | Subset eligible for detailed methodological inspection |
+| After quality appraisal | 246 | Studies satisfying the appraisal checklist (Q1–Q5) |
+| After final verification | 239 | 7 records outside the GAN-for-NLP scope removed (code S1) |
+| Citation searching | 5 | 11 records identified from reference lists, 5 included (6 published before 2018) |
+| Final included | 244 | 231 primary studies (synthesised in the review) + 13 reviews and surveys (supporting records) |
 
-Each numerical transition is supported by **explicit CSV decision logs**, ensuring full transparency.
+Each transition is documented in the CSV files of the corresponding stage.
 
 ### 3.2) Eligibility criteria
 
-To minimize subjectivity and ensure consistency across reviewers, explicit eligibility criteria were defined a priori.
+Explicit eligibility criteria were defined before screening.
 
 #### 3.2.1) Inclusion and exclusion criteria
 
-A study was eligible if a GAN, or a generator–discriminator architecture trained adversarially, was part of its proposed method, and if natural language was central to the task: as input or output text, as spoken or signed language, or as the conditioning signal of a multimodal generator. Studies were published between 2017 and 2025 in English, as peer-reviewed journal articles, conference papers, or book chapters; widely cited arXiv preprints without a peer-reviewed version were also eligible, and reviews were retained as supporting records only. Editorials, notes, extended abstracts, and low-citation preprints were excluded. Public code was **not** an inclusion requirement; code availability was recorded and favoured during quality appraisal.
+A study was eligible if a GAN, or a generator–discriminator architecture trained adversarially, was part of its proposed method, and if natural language was central to the task: as input or output text, as spoken or signed language, or as the conditioning signal of a multimodal generator. Studies were published between 2018 and 2026 in English, as peer-reviewed journal articles, conference papers, or book chapters; widely cited arXiv preprints without a peer-reviewed version were also eligible, and reviews were retained as supporting records only. Editorials, notes, extended abstracts, and low-citation preprints were excluded. Public code was **not** an inclusion requirement; code availability was recorded and favoured during quality appraisal.
 
-**Language-adjacent studies.** Studies on non-linguistic data were excluded (code E3), except studies on symbolic or event sequences whose adversarial mechanism is shared with a language-centred counterpart in the same analytical family (e.g., symbolic music alongside lyric-conditioned melody generation; multivariate or binary-level anomaly and malware detection alongside textual spam, URL, and document-malware detection). These 45 studies are marked with † in the manuscript and reported separately in all statistics.
+**Language-adjacent studies.** Studies on non-linguistic data were excluded (code E3), with one exception. A study is *language-adjacent* when its data are not natural language but are modelled with the same adversarial mechanism as a language-centred study of the same sub-task. This covers three kinds of data: (i) symbolic sequences other than language (symbolic music, DNA sequences, malware code); (ii) multivariate time series and network traffic, modelled as sequences of events by anomaly and intrusion detectors; and (iii) language rendered in another medium (scene-text images, recordings of spoken digits). These 36 studies are marked with † in the manuscript and reported separately in all statistics.
+
+**Foundational studies.** Seven foundational studies published in 2017 (SeqGAN, RankGAN, MaliGAN, TextGAN, adversarial REINFORCE, cross-alignment, StackGAN) predate the review period and are not part of the PRISMA corpus. They are listed in the manuscript tables for context, marked with ‡, and excluded from all statistics.
 
 ![Eligibility criteria](figs/InclusionExclusion.png)
 
@@ -195,23 +198,23 @@ Every excluded record carries a single primary reason. For the abstract, full-te
 
 | Stage | Code | Reason | Records |
 |---|---|---|---|
-| Title | T1 | Not an individual paper or unusable record (e.g., proceedings or series name, empty title) | 410 |
-| Title | T2 | Title indicates a non-linguistic application | 1,586 |
-| Abstract | E1 | No GAN/adversarial architecture | 367 |
-| Abstract | E2 | Image-only generation, no text input/output | 447 |
-| Abstract | E3 | Non-linguistic data modality | 738 |
-| Abstract | E4 | GAN-based but no language task | 209 |
-| Abstract | E5 | Peripheral relevance | 47 |
+| Title | T1 | Not an individual paper or unusable record (e.g., proceedings or series name, retraction notice, empty title) | 529 |
+| Title | T2 | Title indicates a non-linguistic application | 2,563 |
+| Abstract | E1 | No GAN/adversarial architecture | 696 |
+| Abstract | E2 | Image-only generation, no text input/output | 451 |
+| Abstract | E3 | Non-linguistic data modality | 781 |
+| Abstract | E4 | GAN-based but no language task | 220 |
+| Abstract | E5 | Peripheral relevance | 149 |
 | Abstract | E6 | Missing or unusable abstract | 13 |
-| Full text | F1 | Language/text not central | 572 |
-| Full text | F2 | GAN not the methodological focus | 325 |
-| Full text | F3 | Another paradigm is the contribution | 914 |
-| Full text | F4 | Topic outside review scope | 165 |
-| Quality | Q1 | Results not reported verifiably | 287 |
-| Quality | Q2 | Narrow baselines or comparisons | 210 |
-| Quality | Q3 | Limited datasets or scenarios | 226 |
-| Quality | Q4 | No ablation or human evaluation | 101 |
-| Quality | Q5 | Lower evidentiary depth than retained set | 328 |
+| Full text | F1 | Language/text not central | 594 |
+| Full text | F2 | GAN not the methodological focus | 350 |
+| Full text | F3 | Another paradigm is the contribution | 919 |
+| Full text | F4 | Topic outside review scope | 166 |
+| Quality | Q1 | Results not reported verifiably | 296 |
+| Quality | Q2 | Narrow baselines or comparisons | 203 |
+| Quality | Q3 | Limited datasets or scenarios | 248 |
+| Quality | Q4 | No ablation or human evaluation | 98 |
+| Quality | Q5 | Lower evidentiary depth than retained studies addressing the same sub-task | 474 |
 | Final verification | S1 | Outside GAN-for-NLP scope | 7 |
 
 ---
@@ -225,35 +228,32 @@ This subsection explains **why each stage exists**, **how decisions were made**,
 #### 4.1) Identification — `Prisma/01_aticles_per_source`
 
 **Rationale**  
-Given the interdisciplinary nature of this work, the identification stage was intentionally **recall-oriented**. Missing relevant computational studies would be more harmful than temporarily including marginal ones.
+The identification stage was designed to favour recall across the relevant research communities.
 
 **What happens here**
 - Aggregation of all automated query outputs
 - No quality or relevance judgment at this stage
 
-**Why this matters**
-- Prevents early bias toward publications
-- Ensures visibility of emerging or hybrid research not consistently indexed
-
 **Artifact**
 
 | File | Description |
 |-----|-------------|
-| `articles.csv` | Complete raw retrieval with metadata (title, authors, abstract, year, doi, source) |
+| `articles.csv` | All identified records with metadata (title, authors, abstract, year, doi, Repo) |
 
 ---
 
 #### 4.2) Duplicate removal — `Prisma/02_duplicate_removal`
 
 **Rationale**  
-The same study frequently appears across multiple repositories with slight metadata variations. Without explicit duplicate handling, downstream analyses (e.g., trends, distributions) would be distorted.
+The same study frequently appears more than once with slight metadata variations. Without explicit duplicate handling, downstream analyses (e.g., trends, distributions) would be distorted.
 
 **How duplicates are detected**
-- DOI matching ensures high-confidence identification
-- Title similarity acts as a robust fallback for missing or inconsistent DOIs
+- DOI matching identifies duplicates with high confidence
+- Title similarity is used as a fallback for missing or inconsistent DOIs
 
 **Decision principle**
-- Only **one canonical record** is retained
+- Only **one canonical record** is retained; when a preprint and its peer-reviewed version were both retrieved, the peer-reviewed record is kept
+- Records published before 2018 are removed here, before screening
 - No study is excluded for scientific reasons at this stage
 
 **Artifacts**
@@ -261,8 +261,9 @@ The same study frequently appears across multiple repositories with slight metad
 | File | Description |
 |-----|-------------|
 | `articles_duplicate_marked.csv` | All detected duplicate groupings |
-| `articles_rejected_by_duplicacy.csv` | Records removed due to redundancy |
-| `articles_after_duplicates.csv` | Clean, de-duplicated corpus |
+| `articles_rejected_by_duplicacy.csv` | Records removed due to redundancy (2,715) |
+| `articles_rejected_by_date.csv` | Records published before 2018, removed before screening (18) |
+| `articles_after_duplicates.csv` | The 8,996 records passed to title screening |
 
 ---
 
@@ -279,15 +280,15 @@ Title screening acts as a **first relevance filter**, removing studies that are 
 
 - No GAN/adversarial-network architecture indicated
 - No NLP/textual-language or multimodal application dimension
-- No demonstrable paper content (junk/non-title entries — proceedings names, citation fragments, bare numbers)
+- No demonstrable paper content (junk/non-title entries — proceedings names, citation fragments, bare numbers, retraction or correction notices)
 
 **Artifacts**
 
 | File | Description |
 |-----|-------------|
-| `articles_title_screened_marked.csv` | Title-level decisions for all 7,144 de-duplicated records |
-| `articles_rejected_by_title.csv` | The 1,996 excluded records with reasons (T1: 410, T2: 1,586) |
-| `articles_after_title_screening.csv` | The 5,148 records retained for abstract screening |
+| `articles_title_screened_marked.csv` | Title-level decisions for all 8,996 records passed to screening |
+| `articles_rejected_by_title.csv` | The 3,092 excluded records with reasons (T1: 529, T2: 2,563) |
+| `articles_after_title_screening.csv` | The 5,904 records retained for abstract screening |
 
 ---
 
@@ -297,12 +298,12 @@ Title screening acts as a **first relevance filter**, removing studies that are 
 Abstract screening enforces domain and methodological relevance and formalizes the GAN-for-NLP inclusion criteria used throughout the review.
 
 **Key evaluation questions**
-- Is a adversarial-network architecture explicitly described in the methodology?
-- Is the application domain textual/linguistic, rather than vision, audio, medical, security, time-series, or another non-NLP field?
+- Is an adversarial-network architecture explicitly described in the methodology?
+- Is natural language central as an input, output, or conditioning signal, or does the study meet the language-adjacent definition?
 - Is the abstract substantive enough to assess relevance (not missing, corrupted, or a citation/proceedings fragment)?
 
 **Why this stage is critical**
-- Prevents inclusion of studies that only mention computation superficially
+- Excludes studies that mention GANs or language only superficially
 - Aligns the corpus with the analytical structure of the review
 
 **Artifacts**
@@ -322,8 +323,8 @@ Focus screening enforces topical centrality and filters out papers where GAN/NLP
 
 **Assessment focus**
 - Is GAN-based language processing the paper's primary contribution, or a passing mention?
-- Does a competing method (diffusion, RL, LLMs-in-general, etc.) dominate the framing instead?
-- Is the language/text or multimodoal component central to the work, or a minor detail?
+- Does adversarial learning have a substantive methodological role, or is another paradigm (e.g., diffusion, reinforcement learning, or LLMs) the actual contribution?
+- Is the language/text or multimodal component central to the work, or a minor detail?
 
 **Why exclusions occur here**
 - Abstracts may overstate contributions
@@ -342,18 +343,16 @@ Focus screening enforces topical centrality and filters out papers where GAN/NLP
 #### 4.6) Qualitative / quality screening — `Prisma/06_qualitive_fulltext_qualitive`
 
 **Rationale**  
-Not all technically valid studies are equally useful for comparative synthesis.  
-This stage prioritizes **substantive, interpretable, and transferable contributions**.
+Studies passing full-text screening were assessed using the appraisal dimensions listed below.
 
 **Quality is assessed along multiple axes**
 - Methodological rigor (evaluation metrics, comparison against baselines, ablation studies)
 - Evidentiary depth (whether claims are backed by concrete numbers vs. asserted qualitatively)
 - Dataset and evaluation transparency (single vs. multiple datasets, reported evaluation scope)
-- Comparative standing relative to the retained set (how the paper's evaluation depth stacks up against the strongest included papers)
+- Comparative standing (evaluation depth compared with that of retained studies on the same sub-task)
 
 **Exclusions at this stage**
-- Do not indicate poor science
-- Reflect limited comparative or analytical value
+- Follow the appraisal checklist (Q1–Q5) relative to retained studies on the same sub-task
 
 **Artifacts**
 
@@ -361,54 +360,41 @@ This stage prioritizes **substantive, interpretable, and transferable contributi
 |-----|-------------|
 | `articles_qualitive_screened_marked.csv` | Quality decisions |
 | `articles_rejected_by_quality.csv` | Excluded studies with rationale |
-| `articles_after_qualitive_screening.csv` | Final high-quality corpus |
+| `articles_after_qualitive_screening.csv` | Records retained after quality appraisal |
 
 ---
 
 ### 4.7) Final inclusion and synthesis artifacts
 
-The final corpus is structured to **directly support analysis, comparison, and discussion**.
+The included records are listed below.
 
 **Included studies**
 
 | File | Description |
 |-----|-------------|
-| `Prisma/07_candidate_papers/candidate_papers.csv` | Definitive list of the 192 retained records (168 primary studies + 24 supporting records) |
+| `Prisma/07_candidate_papers/candidate_papers.csv` | List of the 244 included records (231 primary studies + 13 reviews and surveys), including the 5 records identified through citation searching |
+| `Prisma/08_other_methods/citation_searching_records.csv` | Records identified through citation searching, with the decision for each |
 
 ---
 
-**Overall methodological takeaway**
+**Summary**
 
-- Screening decisions are **progressive, conservative, and justified**
-- Every exclusion is **documented and reversible**
-- All artifacts are **machine-readable, immutable, and version-controlled**
-- The pipeline supports **independent audit, replication, and extension**
+The repository provides machine-readable screening records and exclusion reasons for each stage.
 
-This PRISMA implementation is therefore not only compliant, but **operationally transparent and computationally reproducible**.
-
-**Conceptual structure of retained literature**
+**Keyword co-occurrence in the retained records**
 
 ![Co-occurrence graph](figs/graph.png)
 
-### Interpretation of the keyword co-occurrence network
+### Description of the keyword co-occurrence network
 
-The co-occurrence network offers a compact view of the conceptual organization of the retained GAN-for-NLP literature, showing how methodological, architectural, and application concepts interconnect.
+The network shows which keywords co-occur in the abstracts of the retained records.
 
-- **Modular but connected structure**
-  - Four main thematic clusters (NLP/transformers, detection/classification, GAN, text-image generation) with dense inter-cluster links
-  - Reflects a genuinely cross-cutting field rather than isolated sub-topics
-- **Central bridging concepts**
-  - text, quality, adversarial training
-  - Link language modeling techniques to generative/adversarial methodology
 - **Main clusters**
   - NLP foundations: transformer, BERT, language model, NLP, LLM, machine translation
   - Detection/classification: system, accuracy, detection, classifier, LSTM, anomaly detection
   - GAN training & evaluation: adversarial training, discriminator network, latent space, mode collapse, quality
   - Generation/multimodal output: text generation, image synthesis, text description, realistic image
-- **Key implication**
-  - Language modeling and GAN-based methods are tightly coupled, not separately studied
-  - Detection/classification work reuses the same adversarial machinery as generation work
-  - The structure supports the review's framing of adversarial learning as a unifying technique across diverse NLP tasks
+- **Frequent terms shared by several clusters**: text, quality, adversarial training
 
 ---
 
@@ -432,5 +418,6 @@ review paper tree
     ├── 04_abstract_screening
     ├── 05_fulltext_screening
     ├── 06_qualitive_fulltext_qualitive
-    └── 07_candidate_papers
+    ├── 07_candidate_papers
+    └── 08_other_methods
 ```
