@@ -1,6 +1,6 @@
 # Generative Adversarial Networks for Natural Language Processing: A Systematic Review, Function-Based Taxonomy, and Research Agenda
 
-**Authors**: Mohammad Hossein Zolfagharnasab* & Amin Haghdadi, Siavash Damari, Hooshiar Zolfagharnasab, Ana F. Sequeira, Jaime S. Cardoso
+**Authors**: Mohammad Hossein Zolfagharnasab*, Amin Haghdadi, Siavash Damari, Hooshiar Zolfagharnasab, Ana F. Sequeira, Jaime S. Cardoso
 
 **Corresponding author**: mohammad.h.zolfagharnasab@inesctec.pt
 
